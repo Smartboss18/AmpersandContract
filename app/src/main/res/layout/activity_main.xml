@@ -11,12 +11,11 @@
     <ImageButton
         android:id="@+id/profilePic"
         android:layout_width="match_parent"
-        android:layout_height="166dp"
+        android:layout_height="152dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/profile"
         android:backgroundTint="#f6f6f6"
-        />
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/textView"
@@ -32,5 +31,94 @@
         android:gravity="center"
         android:layout_alignBottom="@+id/profilePic"
         />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="282dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName|textPassword" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="223dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="201dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linkedIn"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Role"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/linkedIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="102dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="LinkedIn"
+        />
+
+    <EditText
+        android:id="@+id/fullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="163dp"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="377dp"
+        android:layout_height="63dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="@color/Primary"
+        android:text="REGISTER"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="67dp"
+        android:layout_height="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="275dp"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>
