@@ -27,7 +27,8 @@ public class StartPage extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), SignUp.class);
+                intent.putExtra("Name", "Register");
                 register.setBackgroundColor(Color.parseColor("#9e9e9e"));
                 startActivity(intent);
             }
@@ -36,7 +37,8 @@ public class StartPage extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), SignUp.class);
+                intent.putExtra("Name", "LogIn");
                 login.setBackgroundColor(Color.parseColor("#9e9e9e"));
                 startActivity(intent);
             }

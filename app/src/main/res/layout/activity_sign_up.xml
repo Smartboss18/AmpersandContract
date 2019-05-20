@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SignUp">
 
 
     <ImageButton
@@ -50,8 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName|textPassword"
@@ -65,11 +63,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullName" />
 
@@ -80,7 +78,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="textPersonName|phone"
@@ -96,8 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/linkedIn"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Role"
         android:inputType="textPersonName"
@@ -110,14 +105,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="LinkedIn"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/register"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twitter" />
 
     <EditText
@@ -168,7 +161,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkedIn" />
+        app:layout_constraintTop_toBottomOf="@+id/linkedIn"
+        app:layout_constraintVertical_bias="0.333" />
 
     <ProgressBar
         android:id="@+id/progressBar"

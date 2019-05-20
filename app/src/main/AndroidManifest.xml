@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUp" />
         <activity
             android:name=".LaunchPage"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -32,7 +32,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".StartPage"></activity>
+        <activity android:name=".StartPage" />
+        <activity android:name=".ProfilePage" />
+        <activity android:name=".SIgnIn"></activity>
     </application>
 
 </manifest>

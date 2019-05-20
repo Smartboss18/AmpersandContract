@@ -1,0 +1,13 @@
+package com.example.shubham.ampersandcontract;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class SIgnIn extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in);
+    }
+}
