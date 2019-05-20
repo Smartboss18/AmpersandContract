@@ -3,6 +3,7 @@ package com.example.shubham.ampersandcontract;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,15 @@ public class StartPage extends AppCompatActivity {
                 intent.putExtra("Name", "Register");
                 register.setBackgroundColor(Color.parseColor("#9e9e9e"));
                 startActivity(intent);
+                CountDownTimer countDownTimer = new CountDownTimer(1000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) { }
+
+                    @Override
+                    public void onFinish() {
+                        register.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }.start();
             }
         });
 
@@ -41,6 +51,15 @@ public class StartPage extends AppCompatActivity {
                 intent.putExtra("Name", "LogIn");
                 login.setBackgroundColor(Color.parseColor("#9e9e9e"));
                 startActivity(intent);
+                CountDownTimer countDownTimer = new CountDownTimer(1000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) { }
+
+                    @Override
+                    public void onFinish() {
+                        login.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }.start();
             }
         });
     }
