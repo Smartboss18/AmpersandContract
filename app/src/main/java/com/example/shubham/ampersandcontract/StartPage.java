@@ -47,7 +47,7 @@ public class StartPage extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), SignUp.class);
+                intent = new Intent(getApplicationContext(), SignIn.class);
                 intent.putExtra("Name", "LogIn");
                 login.setBackgroundColor(Color.parseColor("#9e9e9e"));
                 startActivity(intent);
