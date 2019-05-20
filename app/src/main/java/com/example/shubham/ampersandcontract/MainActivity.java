@@ -49,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     ImageButton profilepic;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
