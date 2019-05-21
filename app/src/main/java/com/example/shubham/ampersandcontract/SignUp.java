@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,6 +124,8 @@ public class SignUp extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Toast.makeText(SignUp.this, "POSTED", Toast.LENGTH_SHORT).show();
+                        Log.i("APII", "Registered");
+                        Log.i("APII", response.toString());
                     }
                 },
                 new Response.ErrorListener()

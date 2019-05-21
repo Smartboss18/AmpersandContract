@@ -18,12 +18,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,25 +83,30 @@ public class SignIn extends AppCompatActivity {
             Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
         }else {
             progressBar.setVisibility(View.VISIBLE);
-            auth.signInWithEmailAndPassword(emailInput, passwordInput)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                postToAPI();
-                                Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                                startActivity(intent);
-                            }else {
-                                errorMessage.setText(task.getException().getMessage());
-                                progressBar.setVisibility(View.INVISIBLE);
+            try {
+                auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    postToAPI();
+                                    Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                                    startActivity(intent);
+                                }else {
+                                    errorMessage.setText(task.getException().getMessage());
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
                             }
-                        }
-                    });
+                        });
+            }catch (Exception e){
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
     public  void postToAPI(){
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://ampersand-contact-exchange-api.herokuapp.com/api/v1/login";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -107,7 +115,8 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignIn.this, "POSTED", Toast.LENGTH_SHORT).show();
+                        Log.i("APII", response.toString());
                     }
                 },
                 new Response.ErrorListener()
@@ -115,7 +124,7 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("APII", error.toString());
                     }
                 }
         ) {
@@ -124,15 +133,14 @@ public class SignIn extends AppCompatActivity {
             {
                 Map<String, String>  params = new HashMap<String, String>();
 
-                params.put("email", emailInput);
-                params.put("password", passwordInput);
+                params.put("email", email.getText().toString() );
+                params.put("password", password.getText().toString());
                 return params;
             }
         };
         queue.add(postRequest);
-
-        Log.i("POSTEDDD", "WORKS");
     }
+
 
     public void resetPassword(){
         if (email.getText().toString().isEmpty()){
