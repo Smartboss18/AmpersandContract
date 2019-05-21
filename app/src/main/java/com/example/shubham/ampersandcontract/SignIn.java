@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +13,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignIn extends AppCompatActivity {
 
@@ -62,6 +72,7 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
+                                postToAPI();
                                 Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
                                 startActivity(intent);
                             }else {
@@ -71,5 +82,42 @@ public class SignIn extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public  void postToAPI(){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://ampersand-contact-exchange-api.herokuapp.com/api/v1/login";
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Toast.makeText(getApplicationContext(), "POSTED", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+
+                params.put("email", emailInput);
+                params.put("password", passwordInput);
+                return params;
+            }
+        };
+        queue.add(postRequest);
+
+        Log.i("POSTEDDD", "WORKS");
     }
 }
