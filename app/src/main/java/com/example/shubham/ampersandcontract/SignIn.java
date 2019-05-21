@@ -1,6 +1,7 @@
 package com.example.shubham.ampersandcontract;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class SignIn extends AppCompatActivity {
     Button signIn;
     ProgressBar progressBar;
     String emailInput, passwordInput;
-    TextView errorMessage;
+    TextView errorMessage, resetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,10 @@ public class SignIn extends AppCompatActivity {
         signIn = findViewById(R.id.signIn);
         progressBar = findViewById(R.id.progressBar2);
         errorMessage = findViewById(R.id.errorMessage);
+        resetPassword = findViewById(R.id.resetPassword);
+
+        resetPassword.setPaintFlags(resetPassword.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -55,15 +60,23 @@ public class SignIn extends AppCompatActivity {
                 userSignIn();
             }
         });
+
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
+
+        emailInput = email.getText().toString();
+        passwordInput = password.getText().toString();
     }
 
     public void userSignIn(){
-        emailInput = email.getText().toString();
-        passwordInput = password.getText().toString();
 
-        if (TextUtils.isEmpty(emailInput)){
+        if (email.getText().toString().isEmpty()){
             Toast.makeText(this, "Enter Email Address!", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(passwordInput)){
+        }else if (password.getText().toString().isEmpty()){
             Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
         }else {
             progressBar.setVisibility(View.VISIBLE);
@@ -119,5 +132,26 @@ public class SignIn extends AppCompatActivity {
         queue.add(postRequest);
 
         Log.i("POSTEDDD", "WORKS");
+    }
+
+    public void resetPassword(){
+        if (email.getText().toString().isEmpty()){
+            Toast.makeText(this, "Enter Registered Email!", Toast.LENGTH_SHORT).show();
+        }else {
+            progressBar.setVisibility(View.VISIBLE);
+            auth.sendPasswordResetEmail(email.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "Reset Link Sent To Email", Toast.LENGTH_SHORT).show();
+                            }else {
+                                errorMessage.setText(task.getException().getMessage());
+                            }
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+        }
+
     }
 }
