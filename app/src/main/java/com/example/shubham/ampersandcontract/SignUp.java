@@ -29,6 +29,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -106,6 +108,9 @@ public class SignUp extends AppCompatActivity {
                             }
                         });
                 postToApi();
+                Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(intent);
+
             }catch (Exception e){
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(SignUp.this, "Empty Fields Present", Toast.LENGTH_SHORT).show();
@@ -126,6 +131,7 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(SignUp.this, "POSTED", Toast.LENGTH_SHORT).show();
                         Log.i("APII", "Registered");
                         Log.i("APII", response.toString());
+
                     }
                 },
                 new Response.ErrorListener()

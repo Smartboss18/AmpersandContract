@@ -1,5 +1,6 @@
 package com.example.shubham.ampersandcontract;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,13 +15,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ProfilePage extends AppCompatActivity {
 
-    final String url = "https://ampersand-contact-exchange-api.herokuapp.com/api/v1/profile/5c8623a37b45790004a16a65";
     RequestQueue queue;
     TextView textView;
 
@@ -40,30 +48,56 @@ public class ProfilePage extends AppCompatActivity {
         });
     }
 
+    public class DownloadTask extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                url = new URL(strings[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader reader = new InputStreamReader(in);
+
+                int data = reader.read();
+
+                while (data != -1){
+                    char current = (char) data;
+                    result += current;
+                    data = reader.read();
+                    Log.i("Website Content", "Internet Works");
+                }
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Log.i("Website Content", result);
+
+        }
+    }
+
+
     public void getDetails(){
 
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            textView.setText(response.getString("password").toString());
+        String url = "https://ampersand-contact-exchange-api.herokuapp.com/api/v1/profile/5ce5335b576a330004edb37d";
+        DownloadTask downloadTask = new DownloadTask();
+        downloadTask.execute(url);
 
-                        } catch (JSONException e) {
-                            Toast.makeText(ProfilePage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ProfilePage.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-
-        queue.add(getRequest);
     }
 }
