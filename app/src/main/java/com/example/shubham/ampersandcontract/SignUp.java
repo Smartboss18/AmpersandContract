@@ -52,6 +52,7 @@ public class SignUp extends AppCompatActivity {
     ImageButton profilepic;
     String firstName = "";
     String lastname = "";
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,30 +146,31 @@ public class SignUp extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(String response) {
-                        // response
+
                         Toast.makeText(SignUp.this, "POSTED", Toast.LENGTH_SHORT).show();
+                        Log.i("resposnsee", response);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            String details = jsonObject.getString("user");
+                            String userDetail = jsonObject.getString("user");
 
-                            Log.i("APIII", details);
+                            Log.i("APIII", userDetail);
 
-                            JSONArray array = new JSONArray(details);
-                            for (int i = 0; i<array.length(); i++){
-                                JSONObject jsonPart = array.getJSONObject(i);
-                                String email = jsonPart.getString("_id");
+                            JSONObject jsonObject1 = new JSONObject(userDetail);
+                            id = jsonObject1.getString("_id");
 
-                                Log.i("emaill", email);
-                            }
+                            Log.i("APIIII", id);
+
+                            Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.i("APIII", e.getMessage().toString());
+                            Log.i("APIIIE", e.getMessage().toString());
                         }
 
-                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                        startActivity(intent);
+
                     }
                 },
                 new Response.ErrorListener()
@@ -229,30 +231,3 @@ public class SignUp extends AppCompatActivity {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-//                        Log.i("APII", "Registered");
-//                        Log.i("APII", response.toString());
-//                        try {
-//                            JSONObject jsonResponse = new JSONObject(response);
-//                            JSONArray jsonArray = jsonResponse.getJSONArray("user");
-//
-//                            for (int i = 0; i<jsonArray.length(); i++){
-//                                JSONObject dataObject = jsonArray.getJSONObject(i);
-//                                String email = dataObject.getString("email");
-//                                Toast.makeText(SignUp.this, email, Toast.LENGTH_SHORT).show();
-//                                Log.i("APII", email);
-//                            }
-//
-//                        }catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-
-
