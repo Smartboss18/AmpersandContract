@@ -54,7 +54,6 @@ public class SignIn extends AppCompatActivity {
 
         resetPassword.setPaintFlags(resetPassword.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
 
-
         auth = FirebaseAuth.getInstance();
 
         signIn.setOnClickListener(new View.OnClickListener() {

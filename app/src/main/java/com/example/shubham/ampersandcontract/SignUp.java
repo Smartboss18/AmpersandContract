@@ -1,6 +1,7 @@
 package com.example.shubham.ampersandcontract;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -29,6 +30,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.FileNotFoundException;
@@ -46,6 +50,8 @@ public class SignUp extends AppCompatActivity {
     TextView instruction;
     ProgressBar progressBar;
     ImageButton profilepic;
+    String firstName = "";
+    String lastname = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +71,14 @@ public class SignUp extends AppCompatActivity {
         profilepic = findViewById(R.id.profilePic);
         instruction = findViewById(R.id.instruction);
 
-            register.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     register();
                 }
             });
 
-            profilepic.setOnClickListener(new View.OnClickListener() {
+        profilepic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     selectPicture();
@@ -84,6 +90,19 @@ public class SignUp extends AppCompatActivity {
 
     public void register(){
 
+        String fullNameText = fullname.getText().toString();
+        Log.i("NAMEE", fullNameText);
+
+        if (fullNameText.split("\\w+").length>1){
+            lastname = fullNameText.substring(fullNameText.lastIndexOf(" ")+1);
+            firstName = fullNameText.substring(0, fullNameText.lastIndexOf(' '));
+
+            Log.i("NAMEE", lastname);
+            Log.i("NAMEE", firstName);
+        }else {
+            firstName = fullNameText;
+        }
+
         if (fullname.getText().toString().isEmpty()){
             Toast.makeText(SignUp.this, "Full Name not entered", Toast.LENGTH_SHORT).show();
         }else if (phoneNumber.getText().toString().isEmpty()){
@@ -92,7 +111,9 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(SignUp.this, "Role not entered", Toast.LENGTH_SHORT).show();
         }else if (twitter.getText().toString().isEmpty()){
             Toast.makeText(SignUp.this, "Please enter Twitter Handle", Toast.LENGTH_SHORT).show();
-        }else{
+        }else if (password.getText().toString().length()<6){
+            Toast.makeText(this, "Password too short", Toast.LENGTH_SHORT).show();
+        } else{
             progressBar.setVisibility(View.VISIBLE);
             try {
                 firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
@@ -108,9 +129,6 @@ public class SignUp extends AppCompatActivity {
                             }
                         });
                 postToApi();
-                Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                startActivity(intent);
-
             }catch (Exception e){
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(SignUp.this, "Empty Fields Present", Toast.LENGTH_SHORT).show();
@@ -129,9 +147,28 @@ public class SignUp extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Toast.makeText(SignUp.this, "POSTED", Toast.LENGTH_SHORT).show();
-                        Log.i("APII", "Registered");
-                        Log.i("APII", response.toString());
 
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String details = jsonObject.getString("user");
+
+                            Log.i("APIII", details);
+
+                            JSONArray array = new JSONArray(details);
+                            for (int i = 0; i<array.length(); i++){
+                                JSONObject jsonPart = array.getJSONObject(i);
+                                String email = jsonPart.getString("_id");
+
+                                Log.i("emaill", email);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i("APIII", e.getMessage().toString());
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener()
@@ -150,7 +187,8 @@ public class SignUp extends AppCompatActivity {
 
                 params.put("email", email.getText().toString() );
                 params.put("password", password.getText().toString());
-                params.put("fullName", fullname.getText().toString());
+                params.put("firstName", firstName);
+                params.put("lastName", lastname);
                 params.put("phoneNumber", phoneNumber.getText().toString());
                 params.put("twitter", twitter.getText().toString());
                 params.put("linkedIn", linkedIn.getText().toString());
@@ -190,7 +228,31 @@ public class SignUp extends AppCompatActivity {
             profilepic.setImageBitmap(bitmap);
         }
     }
-
-
-
 }
+
+
+
+
+
+
+
+
+
+//                        Log.i("APII", "Registered");
+//                        Log.i("APII", response.toString());
+//                        try {
+//                            JSONObject jsonResponse = new JSONObject(response);
+//                            JSONArray jsonArray = jsonResponse.getJSONArray("user");
+//
+//                            for (int i = 0; i<jsonArray.length(); i++){
+//                                JSONObject dataObject = jsonArray.getJSONObject(i);
+//                                String email = dataObject.getString("email");
+//                                Toast.makeText(SignUp.this, email, Toast.LENGTH_SHORT).show();
+//                                Log.i("APII", email);
+//                            }
+//
+//                        }catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+
+
