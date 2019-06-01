@@ -2,10 +2,13 @@ package com.example.shubham.ampersandcontract;
 
 import android.app.Activity;
 import android.app.LauncherActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +56,8 @@ public class SignUp extends AppCompatActivity {
     String firstName = "";
     String lastname = "";
     String id;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,16 +158,15 @@ public class SignUp extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String userDetail = jsonObject.getString("user");
-
-                            Log.i("APIII", userDetail);
-
                             JSONObject jsonObject1 = new JSONObject(userDetail);
                             id = jsonObject1.getString("_id");
 
-                            Log.i("APIIII", id);
+                            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            editor = sharedPreferences.edit();
+                            editor.putString("id", id);
+                            editor.commit();
 
                             Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                            intent.putExtra("id", id);
                             startActivity(intent);
 
                         } catch (JSONException e) {

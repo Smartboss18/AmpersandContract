@@ -89,8 +89,6 @@ public class SignIn extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
                                     postToAPI();
-                                    Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                                    startActivity(intent);
                                 }else {
                                     errorMessage.setText(task.getException().getMessage());
                                     progressBar.setVisibility(View.INVISIBLE);
@@ -116,6 +114,8 @@ public class SignIn extends AppCompatActivity {
                         // response
                         Toast.makeText(SignIn.this, "POSTED", Toast.LENGTH_SHORT).show();
                         Log.i("APII", response.toString());
+                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener()
