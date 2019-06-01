@@ -31,7 +31,7 @@ import java.util.Map;
 public class ProfilePage extends AppCompatActivity {
 
     RequestQueue queue;
-    TextView textView;
+    TextView fullName;
     private  IntentIntegrator qrScan;
     String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter;
     SharedPreferences sharedPreferences;
@@ -43,14 +43,8 @@ public class ProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
 
         queue = Volley.newRequestQueue(this);
+        getDetails();
 
-        textView = findViewById(R.id.textView5);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDetails();
-            }
-        });
 
         Button scan = findViewById(R.id.scan);
         scan.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +94,8 @@ public class ProfilePage extends AppCompatActivity {
                         // response
                         Log.i("Responseee3", response);
 
+                        fullName = findViewById(R.id.textFullname);
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String userDetails = jsonObject.getString("user");
@@ -114,6 +110,7 @@ public class ProfilePage extends AppCompatActivity {
                             userLinkedIn = jsonObject1.getString("linkedIn");
                             userTwitter = jsonObject1.getString("twitter");
 
+                            fullName.setText(userFirstname + "" + userLastname);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

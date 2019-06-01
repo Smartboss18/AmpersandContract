@@ -1,8 +1,6 @@
 package com.example.shubham.ampersandcontract;
 
 import android.app.Activity;
-import android.app.LauncherActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -33,10 +31,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -69,7 +65,7 @@ public class SignUp extends AppCompatActivity {
         email = findViewById(R.id.passwordLogin);
         password = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar);
-        fullname = findViewById(R.id.fullName);
+        fullname = findViewById(R.id.textFullname);
         phoneNumber = findViewById(R.id.phoneNumber);
         role = findViewById(R.id.role);
         twitter = findViewById(R.id.twitter);
