@@ -33,8 +33,7 @@ public class ProfilePage extends AppCompatActivity {
     RequestQueue queue;
     TextView textView;
     private  IntentIntegrator qrScan;
-    String userID;
-    String GETUrl;
+    String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -100,6 +99,26 @@ public class ProfilePage extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Log.i("Responseee3", response);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String userDetails = jsonObject.getString("user");
+                            Log.i("Responseee3R", userDetails);
+
+                            JSONObject jsonObject1 = new JSONObject(userDetails);
+                            userEmail = jsonObject1.getString("email");
+                            userFirstname = jsonObject1.getString("firstName");
+                            userLastname = jsonObject1.getString("lastName");
+                            userPhonenumber = jsonObject1.getString("lastName");
+                            userRole = jsonObject1.getString("role");
+                            userLinkedIn = jsonObject1.getString("linkedIn");
+                            userTwitter = jsonObject1.getString("twitter");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i("Responseee3E", e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener()
