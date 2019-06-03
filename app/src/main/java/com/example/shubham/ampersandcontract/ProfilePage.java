@@ -2,6 +2,7 @@ package com.example.shubham.ampersandcontract;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +36,8 @@ public class ProfilePage extends AppCompatActivity {
     TextView fullName, role, phonenumber, email;
     String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter;
     SharedPreferences sharedPreferences;
-
+    CircularImageView twitter, linkedIn;
+    Intent httpIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,8 @@ public class ProfilePage extends AppCompatActivity {
                         role = findViewById(R.id.textRole);
                         phonenumber = findViewById(R.id.textPhone);
                         email = findViewById(R.id.textEmail);
+                        twitter = findViewById(R.id.circularTwitter);
+                        linkedIn = findViewById(R.id.circularLinkedIn);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -108,6 +113,24 @@ public class ProfilePage extends AppCompatActivity {
                             role.setText(userRole);
                             phonenumber.setText(userPhonenumber);
                             email.setText(userEmail);
+
+                            twitter.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    httpIntent = new Intent(Intent.ACTION_VIEW);
+                                    httpIntent.setData(Uri.parse("http://twitter.com/" + userTwitter));
+                                    startActivity(httpIntent);
+                                }
+                            });
+
+                            linkedIn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    httpIntent = new Intent(Intent.ACTION_VIEW);
+                                    httpIntent.setData(Uri.parse("https://www.linkedin.com/" + userLinkedIn));
+                                    startActivity(httpIntent);
+                                }
+                            });
 
                         } catch (JSONException e) {
                             e.printStackTrace();

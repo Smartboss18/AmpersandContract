@@ -56,19 +56,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textFullname" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/circularImageView2"
+        android:id="@+id/circularTwitter"
         android:layout_width="48dp"
         android:layout_height="52dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/twitter"
-        app:layout_constraintEnd_toStartOf="@+id/circularImageView3"
+        app:layout_constraintEnd_toStartOf="@+id/circularLinkedIn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circularImageView" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/circularImageView3"
+        android:id="@+id/circularLinkedIn"
         android:layout_width="51dp"
         android:layout_height="50dp"
         android:layout_marginEnd="252dp"
@@ -76,7 +76,7 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/linkedin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/circularImageView2"
+        app:layout_constraintStart_toEndOf="@+id/circularTwitter"
         app:layout_constraintTop_toBottomOf="@+id/circularImageView" />
 
     <ImageView
@@ -88,7 +88,7 @@
         android:layout_marginTop="43dp"
         app:layout_constraintEnd_toStartOf="@+id/textPhone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularImageView2"
+        app:layout_constraintTop_toBottomOf="@+id/circularTwitter"
         app:srcCompat="@drawable/telephone" />
 
     <ImageView
@@ -113,7 +113,7 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularImageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/circularTwitter" />
 
     <TextView
         android:id="@+id/textEmail"
