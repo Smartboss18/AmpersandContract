@@ -31,11 +31,10 @@ import java.util.Map;
 public class ProfilePage extends AppCompatActivity {
 
     RequestQueue queue;
-    TextView fullName;
-    private  IntentIntegrator qrScan;
+    TextView fullName, role, phonenumber, email;
     String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter;
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +44,6 @@ public class ProfilePage extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         getDetails();
 
-
-        Button scan = findViewById(R.id.scan);
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                qrScan.initiateScan();
-            }
-        });
     }
 
     @Override
@@ -95,6 +86,9 @@ public class ProfilePage extends AppCompatActivity {
                         Log.i("Responseee3", response);
 
                         fullName = findViewById(R.id.textFullname);
+                        role = findViewById(R.id.textRole);
+                        phonenumber = findViewById(R.id.textPhone);
+                        email = findViewById(R.id.textEmail);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -105,12 +99,15 @@ public class ProfilePage extends AppCompatActivity {
                             userEmail = jsonObject1.getString("email");
                             userFirstname = jsonObject1.getString("firstName");
                             userLastname = jsonObject1.getString("lastName");
-                            userPhonenumber = jsonObject1.getString("lastName");
+                            userPhonenumber = jsonObject1.getString("phoneNumber");
                             userRole = jsonObject1.getString("role");
                             userLinkedIn = jsonObject1.getString("linkedIn");
                             userTwitter = jsonObject1.getString("twitter");
 
-                            fullName.setText(userFirstname + "" + userLastname);
+                            fullName.setText(userFirstname + " " + userLastname);
+                            role.setText(userRole);
+                            phonenumber.setText(userPhonenumber);
+                            email.setText(userEmail);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -136,7 +133,6 @@ public class ProfilePage extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-
     }
 }
 
