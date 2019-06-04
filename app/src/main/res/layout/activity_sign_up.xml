@@ -52,7 +52,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:ems="10"
+        android:paddingRight="10dp"
         android:hint="Password"
+        android:gravity="right|center"
         android:inputType="textPersonName|textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
@@ -63,9 +65,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:paddingRight="10dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Email"
+        android:gravity="right|center"
+        android:hint="vshubhamr@yahoo.com"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -79,8 +83,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"
+        android:paddingRight="10dp"
         android:ems="10"
-        android:hint="Phone Number"
+        android:gravity="right|center"
+        android:hint="0216548975"
         android:inputType="textPersonName|phone"
         android:maxLength="10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,9 +100,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/linkedIn"
         android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Role"
+        android:gravity="right|center"
+        android:hint="Manager"
         android:inputType="textPersonName"
+        android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
@@ -106,12 +115,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:paddingRight="10dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="LinkedIn"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="right|center"
         app:layout_constraintTop_toBottomOf="@+id/twitter" />
 
     <EditText
@@ -123,8 +134,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Full Name"
+        android:gravity="right|center"
+        android:hint="Shubham Vishwakarma"
         android:inputType="textPersonName"
+        android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +152,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Twitter"
+        android:gravity="right|center"
+        android:hint="vshubhams"
+        android:paddingRight="10dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -181,6 +196,83 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="87dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="LinkedIn"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="484dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="87dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Twitter"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="430dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="87dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Role"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="127dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Phone Number"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="110dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Full Name"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="192dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="87dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Email"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="87dp"
+        android:layout_height="34dp"
+        android:gravity="bottom|left|center"
+        android:text="Password"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="284dp" />
 
 
 </android.support.constraint.ConstraintLayout>
