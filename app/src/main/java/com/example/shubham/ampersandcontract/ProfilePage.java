@@ -2,13 +2,17 @@ package com.example.shubham.ampersandcontract;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,8 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,9 +40,9 @@ public class ProfilePage extends AppCompatActivity {
 
     RequestQueue queue;
     TextView fullName, role, phonenumber, email;
-    String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter;
+    String userID, GETUrl, userEmail, userFirstname, userLastname, userPhonenumber, userRole, userLinkedIn, userTwitter, userProfilePhoto;
     SharedPreferences sharedPreferences;
-    CircularImageView twitter, linkedIn;
+    CircularImageView twitter, linkedIn, circularImageView;
     Intent httpIntent;
 
     @Override
@@ -94,6 +100,7 @@ public class ProfilePage extends AppCompatActivity {
                         email = findViewById(R.id.textEmail);
                         twitter = findViewById(R.id.circularTwitter);
                         linkedIn = findViewById(R.id.circularLinkedIn);
+                        circularImageView = findViewById(R.id.circularProfilePhoto);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -108,11 +115,15 @@ public class ProfilePage extends AppCompatActivity {
                             userRole = jsonObject1.getString("role");
                             userLinkedIn = jsonObject1.getString("linkedIn");
                             userTwitter = jsonObject1.getString("twitter");
+                            userProfilePhoto = jsonObject1.getString("photo");
 
                             fullName.setText(userFirstname + " " + userLastname);
                             role.setText(userRole);
                             phonenumber.setText(userPhonenumber);
                             email.setText(userEmail);
+
+                            decodeBase64AndSetImage(userProfilePhoto, circularImageView);
+
 
                             twitter.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -131,6 +142,8 @@ public class ProfilePage extends AppCompatActivity {
                                     startActivity(httpIntent);
                                 }
                             });
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -157,6 +170,16 @@ public class ProfilePage extends AppCompatActivity {
         };
         queue.add(postRequest);
     }
+
+    private void decodeBase64AndSetImage(String completeImageData, ImageView imageView) {
+
+        InputStream stream = new ByteArrayInputStream(Base64.decode(completeImageData.getBytes(), Base64.DEFAULT));
+
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
+        imageView.setImageBitmap(bitmap);
+    }
+
 }
 
 
