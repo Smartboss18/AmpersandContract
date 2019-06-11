@@ -221,6 +221,7 @@ public class SignUp extends AppCompatActivity {
                 params.put("twitter", twitter.getText().toString());
                 params.put("linkedIn", linkedIn.getText().toString());
                 params.put("role", role.getText().toString());
+                
 
                 return params;
             }
@@ -357,13 +358,27 @@ public class SignUp extends AppCompatActivity {
                     new String[]{"image/jpeg"}, null);
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
+            getBase64String();
+
+            Log.i("StringPic", getBase64String().toString());
 
             return f.getAbsolutePath();
+
         } catch (IOException e1) {
             e1.printStackTrace();
         }
         return "";
 
+    }
+
+    private String getBase64String() {
+
+        Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
 }
