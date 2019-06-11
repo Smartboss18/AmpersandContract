@@ -115,15 +115,11 @@ public class ProfilePage extends AppCompatActivity {
                             userRole = jsonObject1.getString("role");
                             userLinkedIn = jsonObject1.getString("linkedIn");
                             userTwitter = jsonObject1.getString("twitter");
-                            userProfilePhoto = jsonObject1.getString("photo");
 
                             fullName.setText(userFirstname + " " + userLastname);
                             role.setText(userRole);
                             phonenumber.setText(userPhonenumber);
                             email.setText(userEmail);
-
-                            decodeBase64AndSetImage(userProfilePhoto, circularImageView);
-
 
                             twitter.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -169,15 +165,6 @@ public class ProfilePage extends AppCompatActivity {
             }
         };
         queue.add(postRequest);
-    }
-
-    private void decodeBase64AndSetImage(String completeImageData, ImageView imageView) {
-
-        InputStream stream = new ByteArrayInputStream(Base64.decode(completeImageData.getBytes(), Base64.DEFAULT));
-
-        Bitmap bitmap = BitmapFactory.decodeStream(stream);
-
-        imageView.setImageBitmap(bitmap);
     }
 
 }
