@@ -76,7 +76,7 @@ public class SignUp extends AppCompatActivity {
     String id;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private static final String IMAGE_DIRECTORY = "/demonuts";
+    private static final String IMAGE_DIRECTORY = "/ampersand";
     private int GALLERY = 1, CAMERA = 2;
     File f;
 
@@ -221,7 +221,7 @@ public class SignUp extends AppCompatActivity {
                 params.put("twitter", twitter.getText().toString());
                 params.put("linkedIn", linkedIn.getText().toString());
                 params.put("role", role.getText().toString());
-                
+                params.put("photo", getBase64String());
 
                 return params;
             }
@@ -361,6 +361,7 @@ public class SignUp extends AppCompatActivity {
             getBase64String();
 
             Log.i("StringPic", getBase64String().toString());
+            Log.i("StringPic2", f.getAbsolutePath());
 
             return f.getAbsolutePath();
 
@@ -374,9 +375,8 @@ public class SignUp extends AppCompatActivity {
     private String getBase64String() {
 
         Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
