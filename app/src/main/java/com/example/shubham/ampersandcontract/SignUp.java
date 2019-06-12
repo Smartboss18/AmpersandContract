@@ -50,9 +50,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +76,7 @@ public class SignUp extends AppCompatActivity {
     String firstName = "";
     String lastname = "";
     String id;
+    String profilePicString = null;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private static final String IMAGE_DIRECTORY = "/ampersand";
@@ -221,7 +224,7 @@ public class SignUp extends AppCompatActivity {
                 params.put("twitter", twitter.getText().toString());
                 params.put("linkedIn", linkedIn.getText().toString());
                 params.put("role", role.getText().toString());
-                params.put("photo", getBase64String());
+                params.put("photo", profilePicString);
 
                 return params;
             }
@@ -358,27 +361,38 @@ public class SignUp extends AppCompatActivity {
                     new String[]{"image/jpeg"}, null);
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-            getBase64String();
 
-            Log.i("StringPic", getBase64String().toString());
             Log.i("StringPic2", f.getAbsolutePath());
-
+            convertToString(f.getAbsolutePath());
             return f.getAbsolutePath();
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
         return "";
-
     }
 
-    private String getBase64String() {
-
-        Bitmap bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    public void convertToString(String filepath){
+        InputStream inputStream = null;//You can get an inputStream using any IO API
+        try {
+            inputStream = new FileInputStream(filepath);
+            byte[] bytes;
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            try {
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    output.write(buffer, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bytes = output.toByteArray();
+            String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
+            profilePicString = encodedString;
+            Log.i("ProfilePic", encodedString);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-
 }
